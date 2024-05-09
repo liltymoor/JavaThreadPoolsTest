@@ -12,18 +12,6 @@ public abstract class Task {
     protected abstract void compute();
     public void runTask() {
         compute();
-//        Logger logger = Logger.getLogger("Test");
-//        long startTime = System.currentTimeMillis();
-//
-//        System.out.println("=================\n");
-//        logger.info("Task %s is running".formatted(taskName));
-//
-//        compute();
-//
-//        long endTime = System.currentTimeMillis();
-//
-//        logger.info("Task %s is ended | Efficiency: %s".formatted(taskName, endTime - startTime));
-//        System.out.println("\n=================");
-    };
+    }
 
 }

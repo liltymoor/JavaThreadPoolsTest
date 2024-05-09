@@ -10,9 +10,9 @@ public class TaskTester {
     private boolean usePrecompiledExecutors = true;
     public void setUsePrecompiledExecutors(boolean flag) {usePrecompiledExecutors = flag;}
 
-    private ExecutorService cachedPool = Executors.newCachedThreadPool();
-    private ExecutorService fixedPool = Executors.newFixedThreadPool(20);
-    private ExecutorService virtualPool = Executors.newVirtualThreadPerTaskExecutor();
+    private final ExecutorService cachedPool = Executors.newCachedThreadPool();
+    private final ExecutorService fixedPool = Executors.newFixedThreadPool(20);
+    private final ExecutorService virtualPool = Executors.newVirtualThreadPerTaskExecutor();
 
     private ExecutorService getCachedPool() {
         if (usePrecompiledExecutors) return this.cachedPool;
@@ -28,9 +28,9 @@ public class TaskTester {
     }
 
     // Кол-во раз которое задача будет подана пулу на исполнение.
-    private int difficulty = 50;
-    void setTaskExecutionDifficulty(int difficulty) {
-        this.difficulty = difficulty;
+    private int count = 50;
+    void setTaskExecutionDifficulty(int count) {
+        this.count = count;
     }
 
     public TaskTester() {
@@ -38,13 +38,23 @@ public class TaskTester {
     }
 
     public void taskSingleThreadTest(Task toTest) {
-        //TODO Сделать singlethread тест по такой же структуре как 3 теста ниже.
+        long startTime = System.currentTimeMillis();
+
+        for (int i = 0; i < count; i++) {
+            toTest.runTask();
+        }
+
+        long endTime = System.currentTimeMillis();
+
+        Logger.getLogger("Test").info("Fixed pool finished task %s for %s ms%n"
+                .formatted(toTest.taskName, endTime - startTime));
     }
+
     public void taskFixedTest(Task toTest) {
         long startTime = System.currentTimeMillis();
 
         ExecutorService pool = getFixedPool();
-        for (int i = 0; i < difficulty; i++)
+        for (int i = 0; i < count; i++)
             pool.submit(toTest::runTask);
 
         long endTime = System.currentTimeMillis();
@@ -57,7 +67,7 @@ public class TaskTester {
         long startTime = System.currentTimeMillis();
 
         ExecutorService pool = getCachedPool();
-        for (int i = 0; i < difficulty; i++)
+        for (int i = 0; i < count; i++)
             pool.submit(toTest::runTask);
 
         long endTime = System.currentTimeMillis();
@@ -70,7 +80,7 @@ public class TaskTester {
         long startTime = System.currentTimeMillis();
 
         ExecutorService pool = getVirtualPool();
-        for (int i = 0; i < difficulty; i++)
+        for (int i = 0; i < count; i++)
             pool.submit(toTest::runTask);
 
         long endTime = System.currentTimeMillis();

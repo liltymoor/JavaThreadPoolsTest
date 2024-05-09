@@ -7,10 +7,11 @@ public class Main {
         tester.setTaskExecutionDifficulty(200);
         tester.setUsePrecompiledExecutors(true);
 
-        int fibDifficulty = 100;
+        int fibNumber = 40;
 
-        tester.taskVirtualTest(new FibonacciTask(fibDifficulty));
-        tester.taskCachedTest(new FibonacciTask(fibDifficulty));
-        tester.taskFixedTest(new FibonacciTask(fibDifficulty));
+        tester.taskVirtualTest(new FibonacciTask(fibNumber));
+        tester.taskCachedTest(new FibonacciTask(fibNumber));
+        tester.taskFixedTest(new FibonacciTask(fibNumber));
+        tester.taskSingleThreadTest(new FibonacciTask(fibNumber));
     }
 }

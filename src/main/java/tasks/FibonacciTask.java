@@ -1,10 +1,10 @@
 package tasks;
 
 public class FibonacciTask extends Task{
-    private int difficulty = 10000;
+    private final int number;
     public FibonacciTask(int difficulty) {
         super("fibonacci " + difficulty);
-        this.difficulty = difficulty;
+        this.number = difficulty;
     }
 
     private static long fibonacci(int n) {
@@ -17,6 +17,6 @@ public class FibonacciTask extends Task{
 
     @Override
     protected void compute() {
-        fibonacci(difficulty);
+        fibonacci(number);
     }
 }
